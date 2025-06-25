@@ -25,16 +25,17 @@ const TeXConverter = () => {
 		// Remove outer $ symbols
 		let text = mathText.replace(/^\$+|\$+$/g, "");
 
-		// Handle fractions - smarter approach
+		// Handle fractions - always wrap the entire fraction in brackets for clarity
 		text = text.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, (match, num, den) => {
-			// Simple numbers don't need parentheses
+			// Simple numbers don't need parentheses around numerator/denominator
 			const needsParensNum = /[+\-*/^_\\]/.test(num) || num.includes(" ");
 			const needsParensDen = /[+\-*/^_\\]/.test(den) || den.includes(" ");
 
 			const numerator = needsParensNum ? `(${num})` : num;
 			const denominator = needsParensDen ? `(${den})` : den;
 
-			return `${numerator}/${denominator}`;
+			// Always wrap the entire fraction in brackets
+			return `(${numerator}/${denominator})`;
 		});
 
 		// Handle powers/superscripts - only add parentheses for complex expressions
@@ -319,8 +320,8 @@ const TeXConverter = () => {
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
 					<div className="text-center text-gray-600 text-sm">
 						<p>
-							Supports fractions, powers, roots, Greek letters, and mathematical
-							operators
+							Supports fractions (with brackets), powers, roots, Greek letters,
+							and mathematical operators
 						</p>
 					</div>
 				</div>
