@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import TeXConverter from "./TexConverter";
+import HomePage from "./HomePage";
+import Quant from "./Quant";
+import Lrdi from "./Lrdi";
 
 function App() {
 	return (
-		<div>
-			<TeXConverter />
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/quant" element={<Quant />} />
+				<Route path="/lrdi" element={<Lrdi />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
